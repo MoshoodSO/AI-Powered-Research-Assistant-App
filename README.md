@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+## AI-Powered Research Assistant App
 
 ## Project info
 
