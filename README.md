@@ -1,71 +1,78 @@
-## AI-Powered Research Assistant App
+# AI-Powered Research Assistant App
 
-<!-- ## Project info **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID 
+> An AI-powered research assistant that helps users extract insights from academic documents and online sources.
 
-## How can I edit this code?
+## Description
 
-There are several ways of editing your application.
+This project was created with **Lovable.dev** — an AI-powered platform that enables you to build full-stack web applications from natural language prompts.  
+It allows users to upload research documents, analyze content, and interact with an intelligent assistant for summarization, Q&A, and research insights.
 
-**Use Lovable**
+The assistant supports:
+- Multiple file formats (PDF, DOCX, etc.)
+- Smart document processing
+- Real-time response generation
+- Clean UI built with modern web technologies
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Project Info
 
-Changes made via Lovable will be committed automatically to this repo.-->
+**URL:** https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-**Use your preferred IDE**
+## Table of Contents
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- [Demo / Screenshots](#demo--screenshots)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [How to Edit](#how-can-i-edit-this-code)
+  - [Prerequisites](#prerequisites)
+  - [Local Setup](#local-setup)
+- [Technologies Used](#what-technologies-are-used-for-this-project)
+- [Deployment](#how-can-i-deploy-this-project)
+- [Custom Domain](#can-i-connect-a-custom-domain-to-my-lovable-project)
+- [License](#license)
+- [Contact](#contact)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Demo / Screenshots
 
-Follow these steps:
+_Add screenshots or GIFs of your UI here._
+
+---
+
+## Features
+
+- Upload research documents (PDF/DOCX)
+- Intelligent content analysis and summarization
+- Q&A based on document context
+- Responsive UI built with Tailwind & shadcn-ui
+- Fast developer workflow using Vite
+- Built using Lovable’s AI code generation
+
+---
+
+## Getting Started
+
+### How Can I Edit This Code?
+
+There are multiple ways to work on your application.
+
+#### **Use Lovable**
+
+Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.  
+Changes made in Lovable will be automatically committed to the repo.
+
+#### **Use Your Preferred IDE**
+
+If you want to work locally:
 
 ```bash
-# Step 1: Clone the repository using the project's Git URL.
+# Step 1: Clone the repository
 git clone https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App.git
 
-# Step 2: Navigate to the project directory.
+# Step 2: Navigate to the project directory
 cd AI-Powered-Research-Assistant-App
 
-# Step 3: Install the necessary dependencies.
+# Step 3: Install dependencies
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Start development server
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
