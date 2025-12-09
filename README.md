@@ -13,9 +13,9 @@ The assistant supports:
 - Real-time response generation
 - Clean UI built with modern web technologies
 
-## Project Info
+<!--## Project Info
 
-**URL:** https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**URL:** https://lovable.dev/projects/7adf861d-09fa-4944-9c75-0a1f05c5f778 -->
 
 ## Table of Contents
 
@@ -56,7 +56,7 @@ There are multiple ways to work on your application.
 
 #### **Use Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.  
+Simply visit the [Project](https://lovable.dev/projects/7adf861d-09fa-4944-9c75-0a1f05c5f778) and start prompting.  
 Changes made in Lovable will be automatically committed to the repo.
 
 #### **Use Your Preferred IDE**
