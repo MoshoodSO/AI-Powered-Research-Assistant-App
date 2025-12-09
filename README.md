@@ -25,7 +25,7 @@ Follow these steps:
 git clone https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App.git
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd AI-Powered-Research-Assistant-App
 
 # Step 3: Install the necessary dependencies.
 npm i
