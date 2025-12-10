@@ -33,7 +33,7 @@ The assistant supports:
 
 ## Demo / Screenshots
 
-_Add screenshots or GIFs of your UI here._
+
 
 ---
 
