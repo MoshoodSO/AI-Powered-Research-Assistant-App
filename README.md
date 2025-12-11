@@ -33,6 +33,7 @@ The assistant supports:
 
 ## Demo / Screenshots
 
+![Demo](https://github.com/Horlar-1st/AI-Powered-Research-Assistant-App/blob/main/research4me.gif)
 
 
 ---
