@@ -50,16 +50,16 @@ The assistant supports:
 
 ## Getting Started
 
-### How Can I Edit This Code?
+### - How Can I Edit This Code?
 
 There are multiple ways to work on your application.
 
-#### **Use Lovable**
+#### - **Use Lovable**
 
 Simply visit the [Project](https://lovable.dev/projects/7adf861d-09fa-4944-9c75-0a1f05c5f778) and start prompting.  
 Changes made in Lovable will be automatically committed to the repo.
 
-#### **Use Your Preferred IDE**
+#### - **Use Your Preferred IDE**
 
 If you want to work locally:
 
