@@ -1,4 +1,4 @@
-# AI-Powered Research Assistant App
+## 🤖📚 AI-Powered Research Assistant App
 
 > An AI-powered research assistant that helps users extract insights from academic documents and online sources.
 
