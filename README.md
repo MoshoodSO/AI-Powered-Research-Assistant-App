@@ -77,27 +77,11 @@ npm i
 npm run dev
 ```
 
-Technologies Used
+## Technologies Used
 
-Vite
-
-TypeScript
-
-React
-
-shadcn-ui
-
-Tailwind CSS
-
-Deployment
-
-To deploy, open the project in Lovable:
-
-Share → Publish
-
-Custom Domain
-
-Go to:
-
-Project → Settings → Domains → Connect Domain
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
