@@ -91,9 +91,8 @@ npm run dev
   `Share → Publish`
 
 - Custom Domain
-
 Go to:
-`Project → Settings → Domains → Connect Domain`
+  `Project → Settings → Domains → Connect Domain`
 
 
 
