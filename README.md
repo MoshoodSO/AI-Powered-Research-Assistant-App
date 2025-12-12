@@ -93,7 +93,7 @@ npm run dev
 - Custom Domain
 
 Go to:
-Project → Settings → Domains → Connect Domain
+`Project → Settings → Domains → Connect Domain`
 
 
 
