@@ -85,3 +85,17 @@ npm run dev
 - shadcn-ui
 - Tailwind CSS
 
+## Deployment
+
+To deploy, open the project in Lovable:
+
+Share → Publish
+
+Custom Domain
+
+Go to:
+
+Project → Settings → Domains → Connect Domain
+
+
+
