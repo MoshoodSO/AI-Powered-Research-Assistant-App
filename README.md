@@ -76,3 +76,28 @@ npm i
 # Step 4: Start development server
 npm run dev
 ```
+
+Technologies Used
+
+Vite
+
+TypeScript
+
+React
+
+shadcn-ui
+
+Tailwind CSS
+
+Deployment
+
+To deploy, open the project in Lovable:
+
+Share → Publish
+
+Custom Domain
+
+Go to:
+
+Project → Settings → Domains → Connect Domain
+
