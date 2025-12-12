@@ -87,14 +87,12 @@ npm run dev
 
 ## Deployment
 
-To deploy, open the project in Lovable:
+- To deploy, open the project in Lovable:
+  `Share → Publish`
 
-Share → Publish
-
-Custom Domain
+- Custom Domain
 
 Go to:
-
 Project → Settings → Domains → Connect Domain
 
 
