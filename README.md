@@ -95,4 +95,10 @@ npm run dev
     `Project → Settings → Domains → Connect Domain`
 
 
+## License
+
+Open-source project.
+Use your preferred license (e.g., MIT).
+
+
 
