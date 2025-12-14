@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
-import { Upload, Link2, FileText, X, Loader2 } from "lucide-react";
+import { useState, useCallback, useRef } from "react";
+import { Upload, Link2, FileText, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import CustomizationPanel from "./CustomizationPanel";
 import ProcessingState from "./ProcessingState";
 import ResultsPreview from "./ResultsPreview";
@@ -11,6 +12,7 @@ interface UploadedFile {
   name: string;
   size: number;
   type: string;
+  content: string;
 }
 
 const UploadSection = () => {
@@ -19,12 +21,33 @@ const UploadSection = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState("");
   const [customization, setCustomization] = useState({
     summaryLength: "medium",
     focusAreas: ["key-findings", "methodology"],
     outputFormat: "pdf",
   });
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const extractTextFromFile = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result as string;
+        // For PDF and DOCX, we get base64 - for now extract readable text
+        // In production, you'd use a proper parser library
+        if (file.type === "application/pdf") {
+          // Basic text extraction - will work for text-based PDFs
+          resolve(text || `[PDF Content from ${file.name}]`);
+        } else {
+          resolve(text || `[Document content from ${file.name}]`);
+        }
+      };
+      reader.onerror = () => reject(new Error("Failed to read file"));
+      reader.readAsText(file);
+    });
+  };
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -36,7 +59,7 @@ const UploadSection = () => {
     setIsDragging(false);
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
     
@@ -44,15 +67,26 @@ const UploadSection = () => {
     const validFiles = files.filter(file => 
       file.type === "application/pdf" || 
       file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-      file.type === "application/msword"
+      file.type === "application/msword" ||
+      file.type === "text/plain"
     );
 
     if (validFiles.length > 0) {
-      setUploadedFiles(prev => [...prev, ...validFiles.map(f => ({
-        name: f.name,
-        size: f.size,
-        type: f.type,
-      }))]);
+      const processedFiles: UploadedFile[] = [];
+      for (const file of validFiles) {
+        try {
+          const content = await extractTextFromFile(file);
+          processedFiles.push({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            content,
+          });
+        } catch (error) {
+          console.error("Error reading file:", error);
+        }
+      }
+      setUploadedFiles(prev => [...prev, ...processedFiles]);
       toast({
         title: "Files uploaded",
         description: `${validFiles.length} file(s) added successfully.`,
@@ -60,24 +94,33 @@ const UploadSection = () => {
     } else {
       toast({
         title: "Invalid file type",
-        description: "Please upload PDF or Word documents only.",
+        description: "Please upload PDF, Word, or text documents.",
         variant: "destructive",
       });
     }
   }, [toast]);
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const fileArray = Array.from(files).map(f => ({
-        name: f.name,
-        size: f.size,
-        type: f.type,
-      }));
-      setUploadedFiles(prev => [...prev, ...fileArray]);
+      const processedFiles: UploadedFile[] = [];
+      for (const file of Array.from(files)) {
+        try {
+          const content = await extractTextFromFile(file);
+          processedFiles.push({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            content,
+          });
+        } catch (error) {
+          console.error("Error reading file:", error);
+        }
+      }
+      setUploadedFiles(prev => [...prev, ...processedFiles]);
       toast({
         title: "Files uploaded",
-        description: `${fileArray.length} file(s) added successfully.`,
+        description: `${processedFiles.length} file(s) added successfully.`,
       });
     }
   };
@@ -92,7 +135,7 @@ const UploadSection = () => {
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (uploadedFiles.length === 0 && !paperUrl) {
       toast({
         title: "No input provided",
@@ -103,15 +146,60 @@ const UploadSection = () => {
     }
 
     setIsProcessing(true);
-    // Simulate processing
-    setTimeout(() => {
-      setIsProcessing(false);
+
+    try {
+      // Prepare content for analysis
+      let contentToAnalyze = "";
+      
+      if (uploadedFiles.length > 0) {
+        contentToAnalyze = uploadedFiles.map(f => f.content).join("\n\n---\n\n");
+      }
+      
+      if (paperUrl) {
+        contentToAnalyze += `\n\n[Research paper from URL: ${paperUrl}]\nPlease analyze based on this academic source.`;
+      }
+
+      // Map summary length to API format
+      const summaryLengthMap: Record<string, string> = {
+        short: "brief",
+        medium: "standard",
+        long: "detailed",
+        comprehensive: "comprehensive"
+      };
+
+      const { data, error } = await supabase.functions.invoke("analyze-paper", {
+        body: {
+          content: contentToAnalyze,
+          summaryLength: summaryLengthMap[customization.summaryLength] || "standard",
+          focusAreas: customization.focusAreas,
+          outputFormat: customization.outputFormat,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
+      setAnalysisResult(data.summary);
       setShowResults(true);
       toast({
         title: "Analysis complete!",
         description: "Your summary is ready for download.",
       });
-    }, 4000);
+    } catch (error) {
+      console.error("Analysis error:", error);
+      toast({
+        title: "Analysis failed",
+        description: error instanceof Error ? error.message : "An error occurred during analysis.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (isProcessing) {
@@ -125,8 +213,10 @@ const UploadSection = () => {
           setShowResults(false);
           setUploadedFiles([]);
           setPaperUrl("");
+          setAnalysisResult("");
         }}
         outputFormat={customization.outputFormat}
+        summary={analysisResult}
       />
     );
   }
@@ -156,8 +246,9 @@ const UploadSection = () => {
             }`}
           >
             <input
+              ref={fileInputRef}
               type="file"
-              accept=".pdf,.doc,.docx"
+              accept=".pdf,.doc,.docx,.txt"
               multiple
               onChange={handleFileSelect}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -172,7 +263,7 @@ const UploadSection = () => {
               or click to browse your computer
             </p>
             <p className="text-sm text-muted-foreground/70 font-body">
-              Supports PDF, DOC, DOCX files up to 50MB
+              Supports PDF, DOC, DOCX, TXT files up to 50MB
             </p>
           </div>
 

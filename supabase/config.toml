@@ -1,0 +1,4 @@
+project_id = "lrfdeojeofpgvwysqlhc"
+
+[functions.analyze-paper]
+verify_jwt = false
