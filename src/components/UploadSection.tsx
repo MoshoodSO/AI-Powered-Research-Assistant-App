@@ -7,6 +7,10 @@ import { supabase } from "@/integrations/supabase/client";
 import CustomizationPanel from "./CustomizationPanel";
 import ProcessingState from "./ProcessingState";
 import ResultsPreview from "./ResultsPreview";
+import * as pdfjsLib from "pdfjs-dist";
+
+// Set the worker source
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 interface UploadedFile {
   name: string;
@@ -30,19 +34,38 @@ const UploadSection = () => {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const extractTextFromPDF = async (file: File): Promise<string> => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let fullText = "";
+    
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items
+        .map((item: any) => item.str)
+        .join(" ");
+      fullText += pageText + "\n\n";
+    }
+    
+    return fullText.trim();
+  };
+
   const extractTextFromFile = async (file: File): Promise<string> => {
+    if (file.type === "application/pdf") {
+      try {
+        return await extractTextFromPDF(file);
+      } catch (error) {
+        console.error("PDF parsing error:", error);
+        return `[Failed to parse PDF: ${file.name}]`;
+      }
+    }
+    
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result as string;
-        // For PDF and DOCX, we get base64 - for now extract readable text
-        // In production, you'd use a proper parser library
-        if (file.type === "application/pdf") {
-          // Basic text extraction - will work for text-based PDFs
-          resolve(text || `[PDF Content from ${file.name}]`);
-        } else {
-          resolve(text || `[Document content from ${file.name}]`);
-        }
+        resolve(text || `[Document content from ${file.name}]`);
       };
       reader.onerror = () => reject(new Error("Failed to read file"));
       reader.readAsText(file);
