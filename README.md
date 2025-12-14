@@ -101,4 +101,8 @@ Open-source project.
 Use your preferred license (e.g., MIT).
 
 
+Contact
+
+Author: Moshood S.O
+GitHub: https://github.com/MoshoodSO
 
