@@ -1,6 +1,7 @@
 import { Download, ArrowLeft, FileText, CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
+import jsPDF from "jspdf";
 
 interface ResultsPreviewProps {
   onBack: () => void;
@@ -16,17 +17,38 @@ const ResultsPreview = ({ onBack, outputFormat, summary }: ResultsPreviewProps) 
     let filename: string;
 
     if (outputFormat === "pdf") {
-      // Create a text file with PDF extension (proper PDF would need jsPDF)
-      const content = `Research4Me - Analysis Report\n\n${summary}`;
-      blob = new Blob([content], { type: "text/plain" });
-      filename = "research4me-summary.txt";
+      const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("Research4Me - Analysis Report", 20, 20);
+      
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      
+      const lines = doc.splitTextToSize(summary, 170);
+      let y = 35;
+      
+      lines.forEach((line: string) => {
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, 20, y);
+        y += 6;
+      });
+      
+      doc.save("research4me-summary.pdf");
+      
+      toast({
+        title: "Download complete",
+        description: "Your summary has been downloaded as research4me-summary.pdf.",
+      });
+      return;
     } else if (outputFormat === "docx") {
-      // Create a text file (proper DOCX would need docx library)
       const content = `Research4Me - Analysis Report\n\n${summary}`;
       blob = new Blob([content], { type: "text/plain" });
       filename = "research4me-summary.txt";
     } else {
-      // LaTeX format
       const escapedSummary = summary
         .replace(/&/g, "\\&")
         .replace(/%/g, "\\%")
