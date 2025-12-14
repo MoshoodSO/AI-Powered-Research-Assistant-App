@@ -10,10 +10,90 @@ interface ResultsPreviewProps {
 const ResultsPreview = ({ onBack, outputFormat }: ResultsPreviewProps) => {
   const { toast } = useToast();
 
+  const summaryContent = `Research4Me - Analysis Report
+
+KEY FINDINGS
+
+The research presents novel insights into the application of machine learning models in climate prediction. The study demonstrates a 23% improvement in prediction accuracy compared to traditional methods.
+
+METHODOLOGY
+
+The authors employed a hybrid approach combining:
+- Deep learning neural networks
+- Statistical ensemble methods  
+- Physics-informed constraints
+
+MAIN RESULTS
+
+1. Temperature prediction accuracy: 94.7%
+2. Precipitation forecasting: 89.2%
+3. Extreme weather event detection: 91.5%
+
+CONCLUSIONS
+
+This research establishes a new benchmark for climate modeling, with significant implications for disaster preparedness and agricultural planning worldwide.
+`;
+
   const handleDownload = () => {
+    let blob: Blob;
+    let filename: string;
+
+    if (outputFormat === "pdf") {
+      // For PDF, create a simple text file (real PDF generation would need a library)
+      blob = new Blob([summaryContent], { type: "application/pdf" });
+      filename = "research4me-summary.pdf";
+    } else if (outputFormat === "docx") {
+      // For DOCX, create a simple text file (real DOCX would need a library)
+      blob = new Blob([summaryContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+      filename = "research4me-summary.docx";
+    } else {
+      // LaTeX format
+      const latexContent = `\\documentclass{article}
+\\usepackage[utf8]{inputenc}
+\\title{Research4Me - Analysis Report}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+
+\\section{Key Findings}
+The research presents novel insights into the application of machine learning models in climate prediction. The study demonstrates a 23\\% improvement in prediction accuracy compared to traditional methods.
+
+\\section{Methodology}
+The authors employed a hybrid approach combining:
+\\begin{itemize}
+  \\item Deep learning neural networks
+  \\item Statistical ensemble methods
+  \\item Physics-informed constraints
+\\end{itemize}
+
+\\section{Main Results}
+\\begin{enumerate}
+  \\item Temperature prediction accuracy: 94.7\\%
+  \\item Precipitation forecasting: 89.2\\%
+  \\item Extreme weather event detection: 91.5\\%
+\\end{enumerate}
+
+\\section{Conclusions}
+This research establishes a new benchmark for climate modeling, with significant implications for disaster preparedness and agricultural planning worldwide.
+
+\\end{document}`;
+      blob = new Blob([latexContent], { type: "application/x-tex" });
+      filename = "research4me-summary.tex";
+    }
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
     toast({
-      title: "Download started",
-      description: `Your summary is being downloaded as ${outputFormat.toUpperCase()}.`,
+      title: "Download complete",
+      description: `Your summary has been downloaded as ${filename}.`,
     });
   };
 
