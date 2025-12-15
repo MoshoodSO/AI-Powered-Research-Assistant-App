@@ -31,7 +31,7 @@ The assistant supports:
 - [License](#license)
 - [Contact](#contact)
 
-## Demo / Screenshots
+## Demo
 
 ![Demo](https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App/blob/main/research4me.gif)
 
