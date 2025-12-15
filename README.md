@@ -103,6 +103,6 @@ Use your preferred license (e.g., MIT).
 
 ## Contact
 
-- Author: Moshood S.O
+- Author: Shoyombo, Moshood Olanrewaju 
 - GitHub: https://github.com/MoshoodSO
 
