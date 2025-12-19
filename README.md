@@ -33,7 +33,7 @@ The assistant supports:
 
 ## Demo 
 
-[Demo](https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App/blob/main/research4me.gif)
+![Demo](https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App/blob/main/research4me.gif)
 
 ---
 
