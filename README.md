@@ -17,7 +17,7 @@ The assistant supports:
 
 **URL:** https://lovable.dev/projects/7adf861d-09fa-4944-9c75-0a1f05c5f778 -->
 
-## Table of Contents
+## 📝 Table of Contents
 
 - [Demo / Screenshots](#demo--screenshots)
 - [Features](#features)
@@ -31,7 +31,7 @@ The assistant supports:
 - [License](#license)
 - [Contact](#contact)
 
-## Demo 
+## 👨‍💻 Demo 
 
 ![Demo](https://github.com/MoshoodSO/AI-Powered-Research-Assistant-App/blob/main/research4me.gif)
 
