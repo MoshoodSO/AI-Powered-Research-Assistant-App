@@ -37,10 +37,10 @@ The assistant supports:
 
 ---
 
-## Features
+## 🎯 Features
 
-- Upload research documents (PDF/DOCX)
-- Intelligent content analysis and summarization
+✅ Upload research documents (PDF/DOCX)
+✅ Intelligent content analysis and summarization
 - Q&A based on document context
 - Responsive UI built with Tailwind & shadcn-ui
 - Fast developer workflow using Vite
