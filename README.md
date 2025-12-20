@@ -2,7 +2,7 @@
 
 > An AI-powered research assistant that helps users extract insights from academic documents and online sources.
 
-## Description
+## 📝 Description
 
 This project was created with **Lovable.dev** — an AI-powered platform that enables you to build full-stack web applications from natural language prompts.  
 It allows users to upload research documents, analyze content, and interact with an intelligent assistant for summarization, Q&A, and research insights.
@@ -17,7 +17,7 @@ The assistant supports:
 
 **URL:** https://lovable.dev/projects/7adf861d-09fa-4944-9c75-0a1f05c5f778 -->
 
-## 📝 Table of Contents
+## 📋 Table of Contents
 
 - [Demo / Screenshots](#demo--screenshots)
 - [Features](#features)
