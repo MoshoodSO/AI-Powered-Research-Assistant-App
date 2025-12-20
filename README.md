@@ -39,8 +39,8 @@ The assistant supports:
 
 ## 🎯 Features
 
-✅ Upload research documents (PDF/DOCX)
-✅ Intelligent content analysis and summarization
+- Upload research documents (PDF/DOCX)
+- Intelligent content analysis and summarization
 - Q&A based on document context
 - Responsive UI built with Tailwind & shadcn-ui
 - Fast developer workflow using Vite
@@ -48,7 +48,7 @@ The assistant supports:
 
 ---
 
-## Getting Started
+## 💾 Getting Started
 
 ### - How Can I Edit This Code?
 
@@ -77,7 +77,7 @@ npm i
 npm run dev
 ```
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - Vite
 - TypeScript
