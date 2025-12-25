@@ -19,7 +19,7 @@ The assistant supports:
 
 ## 📋 Table of Contents
 
-- [Demo / Screenshots](#demo--screenshots)
+- [Demo](#demo--screenshots)
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [How to Edit](#how-can-i-edit-this-code)
@@ -30,6 +30,8 @@ The assistant supports:
 - [Custom Domain](#can-i-connect-a-custom-domain-to-my-lovable-project)
 - [License](#license)
 - [Contact](#contact)
+
+---
 
 ## 👨‍💻 Demo 
 
