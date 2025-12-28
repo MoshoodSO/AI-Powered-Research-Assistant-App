@@ -8,7 +8,7 @@ This project was created with **Lovable.dev** — an AI-powered platform that en
 It allows users to upload research documents, analyze content, and interact with an intelligent assistant for summarization, Q&A, and research insights.
 
 The assistant supports:
-- Multiple file formats (PDF, DOCX, etc.)
+- Multiple file formats (PDF, DOCX, $\LaTeX$ etc.)
 - Smart document processing
 - Real-time response generation
 - Clean UI built with modern web technologies
