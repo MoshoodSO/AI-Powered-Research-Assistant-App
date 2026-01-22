@@ -105,6 +105,5 @@ Use your preferred license (e.g., MIT).
 
 ## Contact
 
-- Author: Shoyombo, Moshood Olanrewaju 
-- GitHub: https://github.com/MoshoodSO
-
+- Author: Shoyombo, Moshood Olanrewaju
+- LinkedIn: https://www.linkedin.com/in/shoyombo-moshood-582003126
