@@ -103,7 +103,7 @@ Open-source project.
 Use your preferred license (e.g., MIT).
 
 
-## Contact
+## ☎️ Contact
 
 - Author: Shoyombo Moshood Olanrewaju
 - Connect: [Shoyombo Moshood](https://www.linkedin.com/in/shoyombo-moshood-582003126)
