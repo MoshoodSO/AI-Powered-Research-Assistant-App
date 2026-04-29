@@ -104,7 +104,7 @@ Use your preferred license (e.g., MIT).
 
 
 ## ☎️ Contact
-
-- Author: Shoyombo Moshood Olanrewaju
+Let's connect for suggections or question.
+- Author: Shoyombo, Moshood Olanrewaju
 - Connect: [Shoyombo Moshood](https://www.linkedin.com/in/shoyombo-moshood-582003126)
 - Portfolio: [Shoyombo Moshood](https://moshoodso.vercel.app/)
