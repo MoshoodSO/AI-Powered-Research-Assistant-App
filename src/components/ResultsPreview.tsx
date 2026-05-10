@@ -13,6 +13,21 @@ interface ResultsPreviewProps {
 const ResultsPreview = ({ onBack, outputFormat, summary }: ResultsPreviewProps) => {
   const { toast } = useToast();
 
+  const parseInline = (text: string): TextRun[] => {
+    const runs: TextRun[] = [];
+    const regex = /\*\*(.+?)\*\*|\*(.+?)\*/g;
+    let last = 0;
+    let m: RegExpExecArray | null;
+    while ((m = regex.exec(text)) !== null) {
+      if (m.index > last) runs.push(new TextRun(text.slice(last, m.index)));
+      if (m[1]) runs.push(new TextRun({ text: m[1], bold: true }));
+      else if (m[2]) runs.push(new TextRun({ text: m[2], italics: true }));
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) runs.push(new TextRun(text.slice(last)));
+    return runs.length ? runs : [new TextRun(text)];
+  };
+
   const handleDownload = async () => {
     let blob: Blob;
     let filename: string;
