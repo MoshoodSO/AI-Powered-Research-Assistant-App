@@ -47,9 +47,10 @@ serve(async (req) => {
       ? "Format the output as LaTeX document with proper \\section{}, \\subsection{}, and mathematical notation where appropriate."
       : "Format the output in clean Markdown with headers, bullet points, and numbered lists.";
 
-    const systemPrompt = `You are an expert academic research analyst. Your task is to analyze and summarize research papers, articles, and academic projects. 
-Provide clear, accurate, and well-structured summaries that capture the essence of the research.
-Always maintain academic integrity and accurately represent the original work's findings and conclusions.`;
+    const systemPrompt = `You are an expert academic research analyst with deep knowledge of scholarly literature across disciplines.
+Your task is to analyze research papers and produce rigorous, well-structured academic summaries.
+You MUST always include in-text APA 7th edition citations (Author, Year) when referencing the source work or related literature, identify research gaps, and provide a full APA-formatted reference list at the end.
+Maintain strict academic integrity and accurately represent the work's findings.`;
 
     const userPrompt = `Please analyze and summarize the following research content.
 
@@ -57,12 +58,24 @@ Summary Length: ${lengthGuide[summaryLength as keyof typeof lengthGuide] || leng
 ${focusAreasText}
 ${formatInstructions}
 
-Structure your analysis with these sections:
-1. **Key Findings** - The main discoveries and contributions
-2. **Methodology** - Research approach and methods used
-3. **Main Results** - Quantitative and qualitative outcomes
-4. **Conclusions** - Final takeaways and implications
-5. **Limitations & Future Work** - (if mentioned in the source)
+Structure your analysis with these EXACT sections (in order):
+
+1. **Citation (APA 7th)** - Provide the full APA 7th edition citation for the source work itself. If author/year/title/venue are missing, infer them from the content where possible and clearly mark uncertain fields with [unknown].
+2. **Key Findings** - Main discoveries and contributions, with in-text APA citations (Author, Year).
+3. **Methodology** - Research approach, design, sample, and methods used.
+4. **Main Results** - Quantitative and qualitative outcomes, with citations where relevant.
+5. **Conclusions** - Final takeaways and broader implications.
+6. **Research Gaps** - Explicitly identify 3-5 gaps, unanswered questions, or limitations in the current work and the field. Each gap should be a numbered item with a 1-2 sentence explanation of why it matters and what future research could address it.
+7. **References (APA 7th)** - A numbered reference list in proper APA 7th edition format, including:
+   - The source work itself
+   - All works cited in the analysis above (every in-text citation must appear here)
+   - Use hanging-indent style formatting in markdown (each reference on its own line, prefixed with the number).
+   - Include DOI/URL when available.
+
+Rules:
+- Every in-text citation (Author, Year) MUST have a matching entry in the References section.
+- Do not fabricate references — only cite works actually mentioned in or directly relevant to the source content.
+- Use proper APA 7th formatting: Author, A. A. (Year). Title of work. *Journal Name*, Volume(Issue), pages. https://doi.org/...
 
 Research Content:
 ${content}`;
