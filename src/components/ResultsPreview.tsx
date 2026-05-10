@@ -13,7 +13,7 @@ interface ResultsPreviewProps {
 const ResultsPreview = ({ onBack, outputFormat, summary }: ResultsPreviewProps) => {
   const { toast } = useToast();
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     let blob: Blob;
     let filename: string;
 
@@ -46,9 +46,58 @@ const ResultsPreview = ({ onBack, outputFormat, summary }: ResultsPreviewProps) 
       });
       return;
     } else if (outputFormat === "docx") {
-      const content = `Research4Me - Analysis Report\n\n${summary}`;
-      blob = new Blob([content], { type: "text/plain" });
-      filename = "research4me-summary.txt";
+      // Build paragraphs from markdown-ish summary
+      const paragraphs: Paragraph[] = [
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          heading: HeadingLevel.TITLE,
+          children: [new TextRun({ text: "Research4Me - Analysis Report", bold: true, size: 36 })],
+          spacing: { after: 300 },
+        }),
+      ];
+
+      const lines = summary.split("\n");
+      for (const raw of lines) {
+        const line = raw.trimEnd();
+        if (!line.trim()) {
+          paragraphs.push(new Paragraph({ children: [new TextRun("")] }));
+          continue;
+        }
+        if (line.startsWith("### ")) {
+          paragraphs.push(new Paragraph({
+            heading: HeadingLevel.HEADING_3,
+            children: [new TextRun({ text: line.slice(4), bold: true })],
+            spacing: { before: 160, after: 80 },
+          }));
+        } else if (line.startsWith("## ")) {
+          paragraphs.push(new Paragraph({
+            heading: HeadingLevel.HEADING_2,
+            children: [new TextRun({ text: line.slice(3), bold: true })],
+            spacing: { before: 200, after: 100 },
+          }));
+        } else if (line.startsWith("# ")) {
+          paragraphs.push(new Paragraph({
+            heading: HeadingLevel.HEADING_1,
+            children: [new TextRun({ text: line.slice(2), bold: true })],
+            spacing: { before: 240, after: 120 },
+          }));
+        } else if (/^\s*[-*]\s+/.test(line)) {
+          paragraphs.push(new Paragraph({
+            bullet: { level: 0 },
+            children: parseInline(line.replace(/^\s*[-*]\s+/, "")),
+          }));
+        } else if (/^\s*\d+\.\s+/.test(line)) {
+          paragraphs.push(new Paragraph({
+            children: parseInline(line.trim()),
+          }));
+        } else {
+          paragraphs.push(new Paragraph({ children: parseInline(line) }));
+        }
+      }
+
+      const doc = new Document({ sections: [{ children: paragraphs }] });
+      blob = await Packer.toBlob(doc);
+      filename = "research4me-summary.docx";
     } else {
       const escapedSummary = summary
         .replace(/&/g, "\\&")
