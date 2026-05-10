@@ -2,6 +2,7 @@ import { Download, ArrowLeft, FileText, CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
+import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from "docx";
 
 interface ResultsPreviewProps {
   onBack: () => void;
